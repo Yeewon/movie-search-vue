@@ -1,10 +1,11 @@
-// import router from '~/routes'
+require('dotenv').config()
+const {API_ENDPOINT, API_KEY} = process.env
+
 export default{
     namespaced: true,
     state() {
         return {
             movieTitle: '',
-            apiKey: '7035c60c', 
             page: 1,
             movies: [],
             detail: {},
@@ -42,8 +43,8 @@ export default{
                 isLoading: true,
                 isInitialize: true
             })
-            const {apiKey, page} = this.state.movie
-            const movies = await fetch(`https://www.omdbapi.com?apikey=${apiKey}&s=${this.state.movie.movieTitle}&page=${page}`, {
+            const {page} = this.state.movie
+            const movies = await fetch(`${API_ENDPOINT}?apikey=${API_KEY}&s=${this.state.movie.movieTitle}&page=${page}`, {
                 method: 'GET',
             }).then(res => res.json())
             commit('assignState', {
@@ -53,7 +54,7 @@ export default{
         },
         async readMovieDetail({commit}, payload ={}){
             const {id} = payload
-            const detail = await fetch(`https://www.omdbapi.com?apikey=${this.state.movie.apiKey}&i=${id}&plot=full`, {
+            const detail = await fetch(`${API_ENDPOINT}?apikey=${API_KEY}&i=${id}&plot=full`, {
                 method: 'GET',
             }).then(res => res.json())
             commit('assignState', {
