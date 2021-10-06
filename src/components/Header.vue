@@ -25,8 +25,6 @@ export default {
   },
   methods: {
     searchMovies() {
-      console.log(this.movieTitle)
-
       this.$store.dispatch('movie/searchMovies',{
         movieTitle: this.movieTitle
       })
@@ -42,6 +40,7 @@ header {
     justify-content: center;
     align-items: center;
     padding: 10px;
+    background-color: #bfbfbf;
     .movie-search {
       display: flex;
       .movie-search-input {
